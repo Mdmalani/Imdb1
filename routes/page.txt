@@ -1,0 +1,142 @@
+const [posts,setPosts]=useState([]),
+const [loading,setLoading]=useState(false),
+const [currentPage,setcurrentPage]=useState(1),
+
+const [postsperPage,setpostsperPage]=useState(10),
+
+useEffect(()=>{
+
+	const fetchposts=async()=>{
+	setLoading(true)
+	const res=await 
+	setPosts(res)
+	setLoading(flase)
+	
+	}
+fetchposts();
+
+},[])
+
+const indexoflastposts=currentPage*postsperPage;
+const indexoffirstposts=indexoflastposts-postsperPage;
+const currentPosts=posts.slice(indexoffirstposts,indexoflastposts)
+
+return(<div>
+
+<Posts posts={currentPosts} loading={loading}>
+
+
+</div>)
+
+/////////////////////////
+
+const Posts=()=>{
+if(loading)
+return loading
+return(<div>
+<ul>
+{posts.map(posts=>{
+
+<li>{posts.title}</li>
+})}
+</ul>
+
+
+</div>)
+
+}
+
+
+
+const Pagination=({postsperPage,totalPosts})=>{
+
+const pagenumber=[];
+for(let i=1;i<=Math.ceil(totalPosts/postsperPage);i++)
+{
+	pagenumber.push(i);
+
+}
+
+return(
+<div>
+<ul>
+{pagenumber.map(number=>{
+<a >{number}</a>
+
+})}
+
+</ul>
+
+
+
+
+
+</div>
+
+)
+
+
+}
+
+
+
+
+
+<div className="Home">
+        {
+            data.map(item=>{
+                return(
+                <div className="card home-card" key={item._id}>
+                    
+                 <h5 style={{padding:"5px"}}>
+            <Link to={ item.postedBy._id!==state._id ?"/profile/"+item.postedBy._id:"/profile"}>{item.postedBy.name}</Link>
+             {
+
+                 item.postedBy._id==state._id 
+                 && <i className="material-icons" style={{float:"right"}} onClick={()=>{deletePost(item._id)}}>
+                 delete</i> 
+                 
+                 }</h5>
+
+                <div className="card-image">
+                    <img alt="none" src={item.photo} /> 
+                    </div>
+                <div className="card-content">
+                <i className="material-icons" style={{color:"red"}}>favorite</i>
+               {item.likes.includes(state._id)
+               ? <i className="material-icons" onClick={()=>unlikePost(item._id)} >thumb_down</i>
+               :
+
+                <i className="material-icons" onClick={()=>likePost(item._id)}
+                >thumb_up</i>
+               }   
+                <h6>{item.likes.length} likes</h6>
+                    <h4>{item.title}</h4>
+
+                <p>{item.body}</p>
+                {
+                    item.comments.map(record=>{
+                        return(
+                        <h6 key={record._id}>
+                            <span style={{fontWeight:"500"}}>{record.postedBy.name}</span>{record.text}</h6>
+                        )
+                    })
+
+
+                }
+                 <form onSubmit={(e)=>{
+                e.preventDefault()
+               console.log(e)
+                        makeComment(e.target[0].value,item._id)    
+                    }
+                 }> 
+                    <input type="text" placeholder="Add comment"></input>
+                </form>
+                </div>
+                </div>
+                )    
+           })
+        }
+    
+    </div>
+    
