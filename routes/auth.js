@@ -6,9 +6,7 @@ const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
 const {JWT_SECRET}=require('../keys')
 const requirelogin=require('../middleware/requirelogin')
-router.get('/',(req,res)=>{
-    res.send("hello")
-})
+
 
 /*router.get('/protected',requirelogin,(req,res)=>{
 
