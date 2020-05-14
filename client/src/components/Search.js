@@ -12,12 +12,26 @@ const Search=()=>{
     const [runtime,setRuntime]=useState("")  
     const [plot,setPlot]=useState("")  
     const [comment,setComment]=useState("")  
+    const [rating,setRating]=useState("")  
     
+    const [error,setError]=useState({
+      titleerror:"",
+      yearerror:""
+    })
     const {state,dispatch}=useContext(UserContext)
 
+    const validate=()=>{
+     
+      if(!year ||year<1000 ||year>9999 || !title )
+      {
+        console.log("here")
+        return false
+      }
+      return true
+    }
     const postdetails=(e)=>{
       e.preventDefault()
-        
+      validate()
   const data=new FormData()
   data.append("file",image)
   data.append("upload_preset","Insta-clone")
@@ -38,7 +52,8 @@ const Search=()=>{
     useEffect(()=>{
 
       if(url){
-        console.log("here")
+        console.log(url)
+       if(validate()){
         fetch('/newmovie',{
             method:"post",
             headers:{
@@ -60,7 +75,7 @@ const Search=()=>{
                 }
            }).catch(err=>console.log(err))
         
-      }
+      }}
     },[url])
        
    
@@ -69,7 +84,7 @@ const Search=()=>{
                 return(
                <>
                <div class="ui message">
-                <div class="header">Sorry for the inconvenience</div>
+                <div class="header">Sorry for the inconvenience. This movie is not available</div>
                     <p>
                     Please  continue to submit your rating
                 </p>
@@ -80,18 +95,47 @@ const Search=()=>{
         border:"2px solid",
         padding:"20px"
     }}>
+      
     <div class="equal width fields">
     <div class="field">
       <label>Title</label>
-      <div class="ui fluid input"><input type="text" placeholder="Title" required value={title} onChange={(e)=>setTitle(e.target.value)}/></div>
+      <div class="ui fluid input"><input type="text" placeholder="Title" name="title" required value={title} 
+      onChange={(e)=>{
+        setTitle(e.target.value)
+        if(!title)
+        setError({...error,titleerror:"titleerror"})
+        
+      }}
+        
+        /></div>
+   {!error.titleerror && 
+  <span style={{textcolor:"red"}} >Please enter the title</span>}
     </div>
     <div class="field">
       <label>Year</label>
-      <div class="ui fluid input"><input type="text" placeholder="Year" value={year} onChange={(e)=>setYear(e.target.value)} /></div>
+      <div class="ui fluid input"><input type="number"  min="1000" max="9999" placeholder="Year" value={year} 
+      onChange={(e)=>
+
+      {
+        setYear(e.target.value)
+        if(!year || year<1000 ||year>9999 )
+        setError({...error,yearerror:"Please enter the year in range 1001 and 9999"})
+        else
+        setError({...error,yearerror:""})
+      }
+      
+      } /></div>
+      {error.yearerror && 
+  <span className='error'>{error.yearerror}</span>}
+   
     </div>
     <div class="field">
       <label>Runtime</label>
       <div class="ui fluid input"><input type="text" placeholder="Runtime" value={runtime}onChange={(e)=>setRuntime(e.target.value)}/></div>
+    </div>
+    <div class="field">
+      <label>Rating</label>
+      <div class="ui fluid input"><input type="number" placeholder="rating" value={rating}onChange={(e)=>setRating(e.target.value)}/></div>
     </div>
     
     </div>

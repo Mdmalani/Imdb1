@@ -43,7 +43,7 @@ const makecomment=(e,text,id)=>{
         })
     }).then(res=>res.json())
     .then(result=>{
-         console.log(result)
+         console.log(result.poster)
         // const newData=data.filter(item=>{
         //   if( item._id==result._id)
         //     return result
@@ -70,7 +70,7 @@ console.log(data)
   <div class="content">
     <div class="header">{data.title}</div>
     <div class="meta"><span class="date">Release Year:{data.year} </span></div>
-            <div class="description">{data.plot}</div>
+            <div class="description">Plot :{data.plot}</div>
   </div>
                     <div class="content">
                       {/* <div class="metadata"><div>Just now</div></div> */}

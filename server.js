@@ -1,6 +1,7 @@
 // https://www.npmjs.com/package/imdb-node-api#imdb-api-definition
 const express=require('express')
 const app=express();
+const cors=require('cors')
 const router=express.Router()
 const path=require('path')
 const mongoose=require('mongoose')
@@ -17,7 +18,7 @@ mongoose.connection.on('error',(err)=>{
     console.log("error",err)
 })
 
-
+app.use(cors())
 app.use(express.json())
 
 require('./models/user')

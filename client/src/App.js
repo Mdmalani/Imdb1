@@ -26,7 +26,7 @@ const Routing=()=>{
 
     }
     else{
-      history.push('/siginin')
+      history.push('/signin')
     }
   },[])
   return(

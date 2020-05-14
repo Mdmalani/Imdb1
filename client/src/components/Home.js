@@ -16,7 +16,7 @@ const Home =()=>{
       
       },
       
-     }).then(res=>{return res.json()})
+     }).then(res=> res.json())
      .then(data=>{
       console.log(state)
 
@@ -104,48 +104,85 @@ else{
  
   if(data){     
   return ( 
-           <div style={{marginLeft:"30px",marginright:"10px",padding:"2px"}}>
-             <div class="ui four cards" style={{height:"10px"}}>
-
-        
+    <div style={{backgroundColor:"black",marginBottom:"5px"}}>
+    <Carousel style={{marginLeft:"40px",marginRight:"60px"}}>
+    <Carousel.Item >
+      <img style={{height:"400px"}}
+        className="d-block w-100"
+        src="http://res.cloudinary.com/qwase/image/upload/v1589358706/xv4yebinimnjillvyhly.jpg" alt="First slide"
+      />
+      </Carousel.Item>
+    <Carousel.Item >
+      <img style={{height:"400px"}}
+        className="d-block w-100"
+        src="http://res.cloudinary.com/qwase/image/upload/v1589358706/xv4yebinimnjillvyhly.jpg"
+        alt="Third slide"
+      />
+  
+      
+    </Carousel.Item>
+  </Carousel>
+  <br></br>
+  <div style={{marginLeft:"50px"}}>
+  <h3 style={{color:"yellow"}}>
+  <strong >What to Watch</strong>
+   </h3>
+    <h4 style={{color:"gray"}}>Fans Favourites</h4>
+    </div> 
+         <br></br>
+         <br></br>   
         {
-
-data.map((item)=>{
-  return(
-    <div style={{display:"flex",justifyContent:"space-between",padding:"5px",height:"10px"}}>
+          <div style={{display:"flex",
+            justifyContent:"space-evenly"}}>
+{
+  data.map((item)=>{
+     return(
+        <span  style={{backgroundColor:"gray"}}>
+        <img src={item.poster} style={{height:"200px"}}></img>
+     <h3 style={{marginLeft:"10px",padding:"5px"}}>{item.title}  </h3>
+     <h4 style={{marginLeft:"10px"}}>8.5 </h4>
+     <i aria-hidden="true" class="yellow star"></i>
+     {  state?(state.wishlist.includes(item._id)
+     ?<button  style={{
+      marginLeft:"12px",
+    backgroundColor: "dimgrey",
+    border: "none",
+    fontSize: "16px",
+    textAlign: "center",
+    color: "blue",
+    padding:"5px 8px"
+       
+     }} onClick={()=>
+      remove(item._id)}><i style={{
+        bottomTop:"1px"}} aria-hidden="true" class="red heart large inverted icon"></i><span style={{color:"white"}}>Wishlisted</span></button>:<button  onClick={()=>{add(item._id)}}  
+        style={{
+          marginLeft:"25px",
+        backgroundColor: "dimgrey",
+        border: "none",
+        fontSize: "16px",
+        textAlign: "center",
+        color: "white",
+        padding:"5px 8px"
+           
+         }}>
+      <i aria-hidden="true" class="red inverted heart outline"></i>
+      Wishlist
+    </button>):""
+  }   
+          </span>  
 
   
-  <div class="ui raised card">
-    <div class="image"><img src={item.poster} /></div>
-    <div class="content">
-  <div class="header">{item.title}</div>
-    <h4>8.5  <i aria-hidden="true" class="star icon"></i>
-</h4>
-  </div>
-  <div class="extra content" style={{alignContent:"center",marginLeft:"55px"}}>
-   {  state?(state.wishlist.includes(item._id)
-   ?<button className="ui primary button" onClick={()=>
-    remove(item._id)}><i style={{
-      bottomTop:"1px"}} aria-hidden="true" class="red heart large inverted icon"></i>Wishlisted</button>:<button onClick={()=>{add(item._id)}} className="ui primary button" style={{
-    marginLeft:"30px"}}>
-    <i aria-hidden="true" class="red inverted heart outline"></i>
-    Wishlist
-  </button>):""
-}   
-  
-    
-  </div>
-  </div>
-  
-</div>
-
       
     
-  )
+       )
 })}
 </div>
+}
 </div>
+
+
          );
+    
     }
   }
  
