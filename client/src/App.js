@@ -10,6 +10,8 @@ import Createpost from './components/CreatePost';
 import {Userreducer,initialstate} from './reducers/Userreducer'
 import Home from './components/Home';
 import Showmovie from './components/Showmovie';
+import Onshow from './components/Onshow';
+
 import Wishlist from './components/Wishlist';
 export const UserContext=createContext()
 
@@ -36,6 +38,8 @@ const Routing=()=>{
   <Route path="/signup"><Signup/></Route>
   <Route path="/search"><Search/></Route>
   <Route path="/showmovie"><Showmovie/></Route>
+  <Route path="/onshow/:moviename"><Onshow/></Route>
+  
   <Route path="/wishlist"><Wishlist/></Route>
    
     </Switch>

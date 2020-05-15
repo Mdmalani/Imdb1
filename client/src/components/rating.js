@@ -45,9 +45,15 @@ class Rating extends React.Component {
     }
     
     render() { 
-        return ( <div>
+        if(this.state.arr)
+        return (
+             <div>
             {this.state.arr}
-           </div> );
+           </div> )
+        else
+        return(
+            <div>Loading</div>
+        )
     }
 }
  

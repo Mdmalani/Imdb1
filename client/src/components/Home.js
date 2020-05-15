@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import {Carousel} from 'react-bootstrap'
 import {UserContext} from '../App'
-import {useHistory} from 'react-router-dom'
-
+import {useHistory,Link} from 'react-router-dom'
+import onshow from './Onshow'
 const Home =()=>{
   const history=useHistory()
  const [data,setData]=useState([])
@@ -139,8 +139,11 @@ else{
      return(
         <span  style={{backgroundColor:"gray"}}>
         <img src={item.poster} style={{height:"200px"}}></img>
-     <h3 style={{marginLeft:"10px",padding:"5px"}}>{item.title}  </h3>
-     <h4 style={{marginLeft:"10px"}}>8.5 </h4>
+     <h3 style={{padding:"5px"}}>
+      <Link  style={{color:"white"}}to={"/onshow/"+item.title}> {item.title}</Link>  
+       </h3>
+     <h4 style={{marginLeft:"10px"}}>8.5  <i aria-hidden="true" class="yellow star  inverted icon"></i>
+                 </h4>
      <i aria-hidden="true" class="yellow star"></i>
      {  state?(state.wishlist.includes(item._id)
      ?<button  style={{
